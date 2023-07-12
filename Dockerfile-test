@@ -1,0 +1,75 @@
+FROM alpine:3.15
+RUN apk update && apk upgrade && apk add \
+        apache2 \
+        apache2-dev \
+        apache2-utils \
+        php7 \
+        pcre \
+        pcre-dev \
+        jansson \
+        jansson-dev \
+        curl \
+        curl-dev \
+        libcurl \
+        git \
+        pkgconf \
+        automake \
+        autoconf \
+        make \
+        g++ \
+        openssl-dev
+#FROM alpine:3.15
+
+RUN httpd -v
+
+RUN wget https://dl-cdn.alpinelinux.org/alpine/v3.13/community/x86_64/libcouchbase-2.10.6-r0.apk  -O /opt/libcouchbase-2.10.6-r0.apk; \
+    apk add /opt/libcouchbase-2.10.6-r0.apk
+
+RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories ; \
+     apk update ; \
+     wget https://dl-cdn.alpinelinux.org/alpine/v3.13/community/x86_64/php7-pecl-couchbase-2.6.2-r1.apk -O /opt/php7-pecl-couchbase-2.6.2-r1.apk ; \
+     apk add /opt/php7-pecl-couchbase-2.6.2-r1.apk
+
+# RUN apk update && apk upgrade && apk add \
+#     bash \
+#     bind-tools \
+#     apache2 \
+#     apache2-utils \
+#     php7-apache2 \
+#     curl \
+#     jq \
+#     ca-certificates \
+#     openssl \
+#     git \
+#     php7 \
+#     php7-json \
+#     php7-iconv \
+#     php7-openssl \
+#     tzdata \
+#     php7-ftp \
+#     php7-xdebug \
+#     # php7-couchbase \
+#     php7-mcrypt \
+#     php7-mbstring \
+#     php7-soap \
+#     php7-gmp \
+#     php7-dom \
+#     php7-zip \
+#     php7-bcmath \
+#     php7-gd \
+#     php7-gettext \
+#     php7-xmlreader \
+#     php7-xmlwriter \
+#     php7-tokenizer \
+#     php7-xmlrpc \
+#     php7-bz2 \
+#     php7-curl \
+#     php7-ctype \
+#     php7-session \
+#     php7-redis \
+#     php7-exif \
+#     php7-simplexml \
+# #   ln -s /usr/bin/php7 /usr/bin/php \
+#     && rm -f /var/cache/apk/*
+
+CMD tail -f /dev/null
